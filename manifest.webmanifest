@@ -1,0 +1,13 @@
+{
+  "name": "OUTPOST ZERO — Frontier Command",
+  "short_name": "OUTPOST ZERO",
+  "description": "Build. Survive. Transmit. An offline-capable sci-fi strategy game.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080c14",
+  "theme_color": "#080d16",
+  "icons": [
+    { "src": "assets/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
