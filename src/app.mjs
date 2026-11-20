@@ -375,7 +375,8 @@ function simulationTick() {
   const now = Date.now();
   const elapsed = clamp(Math.floor((now - lastWall) / 1000), 0, MAX_OFFLINE_SECONDS);
   if (!elapsed) return;
-  lastWall += elapsed * 1000;
+  // Drop excess hidden-tab backlog rather than simulating another 15 minutes on each callback.
+  lastWall = elapsed >= MAX_OFFLINE_SECONDS ? now : lastWall + elapsed * 1000;
   if (paused) { lastWall = now; return; }
   const beforeStage = state.stage;
   const beforeMission = state.missionsCompleted;
