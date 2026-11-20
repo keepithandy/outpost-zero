@@ -116,7 +116,10 @@ export function getEconomy(state) {
     if (power > 0) {
       const solarBoost = tile.kind === 'solar' && state.tech.includes('photovoltaics') ? 1.3 : 1;
       const stormBoost = tile.kind === 'solar' && state.stormTicks > 0 ? (stormShielded ? 0.85 : 0.52) : 1;
-      powerAvailable += power * solarBoost * stormBoost;
+      const fuelFactor = tile.kind === 'reactor'
+        ? clamp(state.resources.rations / Math.max(0.01, -spec.rates.rations * outputFactor(state, tile)), 0, 1)
+        : 1;
+      powerAvailable += power * solarBoost * stormBoost * fuelFactor;
     } else {
       powerNeeded += -power;
     }
