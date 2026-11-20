@@ -197,7 +197,7 @@ The command runs Node.js syntax checks and automated tests using the built-in No
 
 Coverage includes deterministic expeditions, invalid terrain, affordability, resource conservation, energy/crew shortages, tech gating, three-level upgrades, save round-trips, invalid save rejection, offline catch-up limits, and milestone completion.
 
-**Verification status:** the engine's 15 scenario tests and interface syntax/ID checks passed in the development environment. GitHub Actions and real-device visual/performance verification are separate release gates; do not mistake source-level tests for a device compatibility certification.
+**Verification status:** the engine's 16 scenario tests and interface syntax/ID checks passed in the development environment. GitHub Actions and real-device visual/performance verification are separate release gates; do not mistake source-level tests for a device compatibility certification.
 
 ## Project files
 
