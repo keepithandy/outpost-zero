@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080d16">
+  <meta name="description" content="Outpost Zero is a free, fast, offline-capable sci-fi frontier strategy game. Build an outpost, manage energy and crew, launch expeditions, and decode the last signal.">
+  <meta property="og:title" content="OUTPOST ZERO — The frontier is yours">
+  <meta property="og:description" content="Build. Survive. Transmit. A handcrafted, lightweight browser strategy game.">
+  <meta property="og:image" content="assets/cover.svg">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>OUTPOST ZERO | Frontier Command</title>
+  <script type="module" src="src/app.mjs"></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand" aria-label="Outpost Zero">
+        <span class="brand-mark"><svg aria-hidden="true"><use href="assets/icons.svg#i-logo"></use></svg></span>
+        <span class="brand-wordmark"><strong>OUTPOST<span>ZERO</span></strong><small>FRONTIER COMMAND / 01</small></span>
+      </div>
+      <div class="top-center"><span class="live-light"></span><span id="stationStatus">STATION ONLINE</span><span class="top-divider"></span><span class="system-clock">SOL <strong id="solCount">001</strong></span></div>
+      <div class="top-actions">
+        <button class="icon-button" id="helpBtn" title="Field manual" aria-label="Field manual"><svg><use href="assets/icons.svg#i-info"></use></svg></button>
+        <button class="icon-button" id="pauseBtn" title="Pause simulation" aria-label="Pause simulation"><svg><use href="assets/icons.svg#i-pause"></use></svg></button>
+        <button class="speed-button" id="speedBtn" title="Change simulation speed" aria-label="Change simulation speed">1× <svg><use href="assets/icons.svg#i-fast"></use></svg></button>
+        <button class="icon-button" id="exportBtn" title="Export save" aria-label="Export save"><svg><use href="assets/icons.svg#i-download"></use></svg></button>
+        <button class="icon-button" id="importBtn" title="Import save" aria-label="Import save"><svg><use href="assets/icons.svg#i-upload"></use></svg></button>
+        <input id="importFile" type="file" accept=".json,application/json" hidden>
+      </div>
+    </header>
+
+    <div class="workspace">
+      <aside class="sidebar sidebar-left">
+        <div class="sidebar-heading"><span class="eyebrow">01 / OPERATIONS</span><span class="tiny-dot"></span></div>
+        <section class="station-card">
+          <div class="station-emblem"><svg><use href="assets/icons.svg#i-core"></use></svg></div>
+          <div class="eyebrow muted">ACTIVE COMMAND</div>
+          <h2>Northstar<br><em>Outpost</em></h2>
+          <p>KEPLER-186F // SECTOR 07</p>
+          <div class="station-card-bottom"><span><span class="live-light"></span> HABITABLE</span><span>CLASS / ZERO</span></div>
+        </section>
+        <section class="resource-section">
+          <div class="section-row"><h3>Resource stores</h3><span class="section-meta">LIVE FEED</span></div>
+          <div id="resources" class="resource-list" aria-live="off"></div>
+        </section>
+        <section class="systems-section">
+          <div class="section-row"><h3>Station systems</h3><span class="section-meta">TELEMETRY</span></div>
+          <div class="systems-card">
+            <div class="system-summary"><span><svg><use href="assets/icons.svg#i-power"></use></svg> GRID OUTPUT</span><strong id="powerText">—</strong></div>
+            <div class="meter"><div class="meter-fill meter-power" id="powerMeter"></div></div>
+            <div class="system-summary crew-summary"><span><svg><use href="assets/icons.svg#i-crew"></use></svg> CREW CAPACITY</span><strong id="crewText">—</strong></div>
+            <div class="meter"><div class="meter-fill meter-crew" id="crewMeter"></div></div>
+            <div class="efficiency-line"><span>PRODUCTION EFFICIENCY</span><strong id="efficiencyText">100%</strong></div>
+          </div>
+        </section>
+        <div class="sidebar-bottom">
+          <svg><use href="assets/icons.svg#i-signal"></use></svg>
+          <p>We didn't come this far to go silent.</p>
+          <span>TRANSMISSION // 001</span>
+        </div>
+      </aside>
+
+      <main class="main-column">
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow hero-kicker"><span class="accent-dash"></span> THE EDGE OF KNOWN SPACE</div>
+            <h1>THE FRONTIER<br><span>IS YOURS.</span></h1>
+            <p>A dying star. One last settlement. Build something worth finding.</p>
+            <div class="hero-pills"><span><svg><use href="assets/icons.svg#i-pin"></use></svg> KEPLER SYSTEM</span><span><svg><use href="assets/icons.svg#i-orbit"></use></svg> REMOTE WORLD / 07</span></div>
+          </div>
+          <div class="planet-scene" aria-hidden="true">
+            <div class="planet-rings planet-rings-one"></div><div class="planet-rings planet-rings-two"></div><div class="planet-globe"></div><div class="planet-glow"></div><div class="planet-cross">+</div>
+            <span class="orbit-caption">NORTHSTAR / 006</span>
+          </div>
+        </section>
+
+        <section class="map-section">
+          <div class="map-toolbar">
+            <div><div class="eyebrow">SECTOR SURVEY / GRID 07</div><h2>Command overview <span class="coordinate">[ 07 × 06 ]</span></h2></div>
+            <div class="map-toolbar-actions"><span class="legend"><i class="legend-dot legendary-ore"></i> ORE</span><span class="legend"><i class="legend-dot legendary-ice"></i> ICE</span><span class="legend"><i class="legend-dot legendary-dune"></i> DUNE</span><span class="legend"><i class="legend-dot legendary-rift"></i> RIFT</span></div>
+          </div>
+          <div class="map-surround">
+            <div class="scan-corner sc-tl"></div><div class="scan-corner sc-tr"></div><div class="scan-corner sc-bl"></div><div class="scan-corner sc-br"></div>
+            <div id="mapBoard" class="map-board" role="group" aria-label="Buildable sector grid"></div>
+            <div class="map-coordinate map-coordinate-top">47° 16' 03" N / 102° 08' 11" E</div>
+            <div class="map-coordinate map-coordinate-bottom">TERRAIN SCAN COMPLETE <span>// 42 NODES</span></div>
+          </div>
+          <div class="map-instructions"><span><svg><use href="assets/icons.svg#i-info"></use></svg> Select a module, then choose a free tile to construct.</span><span id="mapModeLabel">SELECTION MODE</span></div>
+        </section>
+
+        <section class="objective-section">
+          <div class="objective-header"><span class="eyebrow">MISSION CONTROL</span><span id="objectiveChapter">CHAPTER 01 / 05</span></div>
+          <div class="objective-content">
+            <div class="objective-mark"><svg><use href="assets/icons.svg#i-spark"></use></svg></div>
+            <div class="objective-text"><h2 id="objectiveTitle">Light the frontier</h2><p id="objectiveDesc">Loading directive…</p><div id="objectiveChecks" class="objective-checks"></div></div>
+            <div class="objective-number" id="objectiveNumber">01<span>/05</span></div>
+          </div>
+        </section>
+      </main>
+
+      <aside class="sidebar sidebar-right">
+        <div class="sidebar-heading"><span class="eyebrow">02 / COMMAND DECK</span><span class="tiny-dot"></span></div>
+        <section class="panel-section build-section">
+          <div class="section-row"><h3>Construct modules</h3><span class="section-meta">SELECT TO BUILD</span></div>
+          <div class="catalog" id="buildCatalog"></div>
+        </section>
+        <section class="panel-section selection-section">
+          <div class="section-row"><h3>Field inspector</h3><span class="section-meta">NODE <span id="selectedIndex">—</span></span></div>
+          <div id="selectionPanel" class="selection-panel"><div class="muted">Select a node on the map.</div></div>
+        </section>
+        <section class="panel-section research-section">
+          <div class="section-row"><h3>Research protocols</h3><span class="section-meta" id="researchCount">0 / 6</span></div>
+          <div id="researchCatalog" class="research-catalog"></div>
+        </section>
+        <section class="panel-section missions-section">
+          <div class="section-row"><h3>Expedition fleet</h3><span class="section-meta">DEEP SPACE</span></div>
+          <div id="missionCatalog" class="mission-catalog"></div>
+        </section>
+        <section class="panel-section feed-section">
+          <div class="section-row"><h3>Event log</h3><span class="section-meta">LATEST</span></div>
+          <div id="eventFeed" class="event-feed"></div>
+        </section>
+      </aside>
+    </div>
+    <footer class="footer"><span>© KEEPITHANDY // OUTPOST ZERO</span><span>LOCAL-FIRST ENGINE <i>•</i> NO ACCOUNTS <i>•</i> NO TRACKING</span><button id="resetBtn" type="button"><svg><use href="assets/icons.svg#i-reset"></use></svg> NEW EXPEDITION</button></footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <dialog id="helpDialog" class="help-dialog">
+    <div class="dialog-header"><span class="eyebrow">FIELD MANUAL / 001</span><button id="closeHelpBtn" class="icon-button" aria-label="Close field manual"><svg><use href="assets/icons.svg#i-close"></use></svg></button></div>
+    <h2>Command the last frontier.</h2>
+    <p>Choose a structure from <strong>Construct Modules</strong>, then select any empty map node. Ore tiles amplify extractors, ice amplifies hydroponics, and dunes amplify solar power. Dark rifts cannot be built upon.</p>
+    <p>Balance power, crew, food, scrap, alloy, and signal. Research new protocols to unlock stronger structures. Send expeditions for rare supplies and complete five milestone chapters to activate the First Beacon.</p>
+    <p>Click a built node to inspect, upgrade, or decommission it. The game saves automatically on this device; use export and import to move your station between devices. The station continues for up to 15 minutes while you're away.</p>
+    <div class="keycap-row"><span><kbd>ESC</kbd> Cancel build selection</span><span><kbd>SPACE</kbd> Pause / resume</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> Speed</span></div>
+    <button id="startPlayingBtn" class="primary-button" type="button">RETURN TO COMMAND <svg><use href="assets/icons.svg#i-arrow"></use></svg></button>
+  </dialog>
+</body>
+</html>

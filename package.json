@@ -1,0 +1,12 @@
+{
+  "name": "outpost-zero",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A fast, original, offline-capable sci-fi browser colony game.",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check src/engine.mjs && node --check src/app.mjs && npm test"
+  },
+  "engines": { "node": ">=20" }
+}
