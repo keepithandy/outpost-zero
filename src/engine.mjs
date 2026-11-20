@@ -159,7 +159,7 @@ function grant(state, rewards) {
 function response(ok, message) { return { ok, message }; }
 
 export function build(state, index, kind) {
-  const spec = BUILDINGS[kind];
+  const spec = Object.hasOwn(BUILDINGS, kind) ? BUILDINGS[kind] : null;
   const tile = state.grid[index];
   if (!spec || !tile || !Number.isInteger(index)) return response(false, 'Invalid construction command.');
   if (!isUnlocked(state, spec)) return response(false, 'Research required before construction.');
@@ -337,7 +337,7 @@ export function loadGame(json, now = Date.now()) {
   const state = createGame(now);
   for (const resource of RESOURCE_KEYS) state.resources[resource] = numeric(raw.resources && raw.resources[resource], state.resources[resource], CAPS[resource]);
   state.grid = raw.grid.map((tile, index) => {
-    const kind = tile && (BUILDINGS[tile.kind] || tile.kind === 'core') ? tile.kind : null;
+    const kind = tile && (Object.hasOwn(BUILDINGS, tile.kind) || tile.kind === 'core') ? tile.kind : null;
     const forced = index === 17 ? 'core' : kind === 'core' ? null : kind;
     return {
       terrain: index === 17 ? 'plain' : terrainAt(index),
