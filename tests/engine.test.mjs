@@ -73,6 +73,18 @@ test('production scales down if grid or crew capacity is exceeded', () => {
   assert.ok(constrained.efficiency < 1);
 });
 
+test('reactors cannot supply power without fuel', () => {
+  const state = createGame();
+  const availableBefore = getEconomy(state).powerAvailable;
+  const index = free(state);
+  state.grid[index].kind = 'reactor';
+  state.grid[index].level = 1;
+  state.resources.rations = 0;
+  assert.equal(getEconomy(state).powerAvailable, availableBefore);
+  state.resources.rations = 60;
+  assert.ok(getEconomy(state).powerAvailable > availableBefore);
+});
+
 test('scarce input resources cannot become negative', () => {
   const state = createGame();
   state.resources.scrap = 0;
